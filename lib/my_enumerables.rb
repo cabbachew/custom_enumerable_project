@@ -8,4 +8,11 @@ end
 # to this method
 class Array
   # Define my_each here
+  def my_each
+    
+    for element in self # The result value of a for loop is the value
+                        # iterated over unless break is used.
+      yield element
+    end
+  end
 end
