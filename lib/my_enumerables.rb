@@ -7,7 +7,7 @@ module Enumerable
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
     i = 0
-    self.my_each do |element|
+    to_a.my_each do |element|
       yield element, i
       i += 1
     end
@@ -16,14 +16,29 @@ module Enumerable
   def my_select
     return to_enum(:my_select) unless block_given?
     arr = []
-    self.my_each do |element|
+    to_a.my_each do |element|
       if yield element
         arr << element
       end
     end
     return arr
   end
+
+  def my_all?(parameter = nil)
+    to_a.my_each do |element|
+      if block_given?
+        return false unless yield element
+      # Check if a pattern is supplied
+      elsif parameter.instance_of? Class
+        return false unless element.is_a? parameter
+      else
+        return false unless parameter.nil? ? element : (!parameter.nil? && parameter === element)
+      end
+    end
+    true
+  end
 end
+
 
 # You will first have to define my_each
 # on the Array class. Methods defined in
