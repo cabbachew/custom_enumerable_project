@@ -1,3 +1,7 @@
+# To-do:
+# - Review alternative solutions
+#   - https://github.com/iliebabcenco/enumerable-methods
+
 module Enumerable
   # Your code goes here
   def my_each_with_index
