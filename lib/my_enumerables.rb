@@ -32,10 +32,23 @@ module Enumerable
       elsif parameter.instance_of? Class
         return false unless element.is_a? parameter
       else
-        return false unless parameter.nil? ? element : (!parameter.nil? && parameter === element)
+        return false unless parameter.nil? ? element : parameter === element
       end
     end
     true
+  end
+
+  def my_any?(parameter = nil)
+    to_a.my_each do |element|
+      if block_given?
+        return true if yield element
+      elsif parameter.instance_of? Class
+        return true if element.is_a? parameter
+      else
+        return true if parameter.nil? ? element : parameter === element
+      end
+    end
+    false
   end
 end
 
